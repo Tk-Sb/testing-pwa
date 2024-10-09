@@ -2,9 +2,9 @@
 
 import webpush from "web-push"
 
-export async function sendNotification () {
+export async function sendNotification (endpoint) {
   const vapidKeys = {
-    publicKey: process.env.publicKey,
+    publicKey: process.env.NEXT_PUBLIC_VAPID_KEY,
     privateKey: process.env.privateKey,
   }
 
@@ -14,7 +14,12 @@ export async function sendNotification () {
     vapidKeys.privateKey
   )
 
+  const subscription = {
+    endpoint: endpoint
+  }
+
   await webpush.sendNotification(
-    
+    subscription,
+    "hello"
   )
 }
