@@ -1,25 +1,23 @@
 'use server'
 
-import webpush from "web-push"
-
 export async function sendNotification (endpoint) {
-  const vapidKeys = {
-    publicKey: process.env.NEXT_PUBLIC_VAPID_KEY,
-    privateKey: process.env.privateKey,
-  }
+  // const vapidKeys = {
+  //   publicKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+  //   privateKey: process.env.privateKey,
+  // }
 
-  webpush.setVapidDetails(
-    'mailto:example@yourdomain.org',
-    vapidKeys.publicKey,
-    vapidKeys.privateKey
-  )
+  // webpush.setVapidDetails(
+  //   'mailto:example@yourdomain.org',
+  //   vapidKeys.publicKey,
+  //   vapidKeys.privateKey
+  // )
 
-  const subscription = {
-    endpoint: endpoint
-  }
+  // const subscription = {
+  //   endpoint: endpoint
+  // }
 
-  await webpush.sendNotification(
-    subscription,
-    "hello"
-  )
+  // await webpush.sendNotification(
+  //   subscription,
+  //   "hello"
+  // )
 }

@@ -1,16 +1,54 @@
 'use server'
 
+import { eq } from "drizzle-orm"
 import { db } from "../db/db"
 import { userTable } from "../db/schema"
+import webPush from 'web-push';  
 
 export async function saveUserSubscription(subscription) {
   console.log(subscription)
-  // try {
-  //   await db.insert(userTable).values(subscription)
-  // }
-  // catch (err) {
-  //   console.log(err)
-  // }
+  try {
+    await db.update(userTable).set({subscription: subscription}).where(eq(userTable.id, 1))
+  }
+  catch (err) {
+    console.log(err)
+  }
+}
+
+export async function pushNotification(id) {
+  const payload = JSON.stringify({  
+    title: "New Notification!",  
+    body: "You have a new update.",  
+  })
+  
+  const vapidKeys = {
+    publicKey: process.env.NEXT_PUBLIC_VAPID_KEY,
+    privateKey: process.env.privateKey,
+  }
+  
+  webPush.setVapidDetails(
+    'mailto:example@yourdomain.org',
+    vapidKeys.publicKey,
+    vapidKeys.privateKey
+  )
+
+  try {
+    const [userSubscription] = await db.select({
+      subscription: userTable.subscription
+    }).from(userTable).where(eq(userTable.id, id))
+    console.log(userSubscription.subscription)
+
+    try {
+      await webPush.sendNotification(userSubscription.subscription, payload)
+      console.log("sent")
+    }
+    catch (err) {
+      console.log(err)
+    }
+  }
+  catch (err) {
+    console.log(err)
+  }
 }
 
 /*

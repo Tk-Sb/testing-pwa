@@ -1,6 +1,6 @@
 'use client'
 
-import { saveUserSubscription } from "@/app/actions/action"
+import { pushNotification, saveUserSubscription } from "@/app/actions/action"
 import { urlBase64ToUint8Array } from "@/utils/utils"
 
 export default function SubButton() {
@@ -22,8 +22,11 @@ export default function SubButton() {
 
   return (
     <>
-      <button className="w-28 h-fit bg-slate-700 " onClick={subscribeUser} >
+      <button className="w-28 h-fit m-4 bg-slate-700 " onClick={subscribeUser} >
         sub
+      </button>
+      <button className="w-28 h-fit m-4 bg-slate-700 " onClick={() => pushNotification(1)} >
+        send to 1
       </button>
     </>
   )
