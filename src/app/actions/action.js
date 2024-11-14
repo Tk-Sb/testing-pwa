@@ -1,8 +1,8 @@
 'use server'
 
 import { eq } from "drizzle-orm"
-import { db } from "../db/db"
-import { userTable } from "../db/schema"
+import { db } from "../../db/db"
+import { userTable } from "../../db/schema"
 import webPush from 'web-push';  
 
 export async function saveUserSubscription(subscription) {

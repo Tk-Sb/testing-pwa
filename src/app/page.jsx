@@ -1,10 +1,27 @@
-import SubButton from "@/components/sub-button";
+import Link from "next/link";
+import { db } from "../db/db";
+import { userTable } from "../db/schema";
 
-export default function Home() {
+export default async function Home() {
+  const data = await db.select({
+    id: userTable.id
+  }).from(userTable)
   
+  console.log(data)
+
   return (
     <>
-      <SubButton></SubButton>
+      {/* <SubButton></SubButton> */}
+      <Link href={"/pep"}>
+        pep
+      </Link>
+      <div>
+        {data.map((user) => (  
+          <li key={user.id}>  
+            {user.id}
+          </li>  
+        ))} 
+      </div>
     </>
   )
 }

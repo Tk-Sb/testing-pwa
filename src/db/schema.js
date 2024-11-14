@@ -1,10 +1,7 @@
-import { serial, pgTable, varchar, json } from "drizzle-orm/pg-core"
+import { serial, pgTable, json } from "drizzle-orm/pg-core"
 
 export const userTable = pgTable('users', {
     id: serial('id').primaryKey(),
-    name: varchar('name', { length: 255 }).notNull(),  
-    username: varchar('username', { length: 255 }).notNull(),
-    password: varchar('password', { length: 255 }).notNull(),
     subscription: json('subscription'),
 })
 
